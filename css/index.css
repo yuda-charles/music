@@ -1,0 +1,50 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing:border-box;
+  }
+  .clearfix:after{
+    content:'';
+    display:block;
+    clear:both;}
+  
+  .musicbox{
+    font-family: cursive,microsoft Yahei;
+    font-size: 16px;
+     width: 380px;
+     height: 115px;
+     border: 1px solid #1ad9;
+    margin: 0 auto;
+    box-shadow: 1px 1px 1px 1px;
+   }
+  
+  .control{
+    margin: 30px ;
+    float: left;
+  }
+  span{
+    margin-left: 7px;
+  }
+  .info{
+    float: right;
+    margin-right:200px;
+    margin-top: 10px;
+  }
+  .musicbox .progress{
+    width: 260px;
+  }
+  .musicbox .progress .bar{
+    height: 3px;
+    margin-top: 5px;
+    background-color: rgba(0,0,0,0.2);
+    cursor: pointer;
+  }
+  .musicbox .progress .progress-now{
+    background-color: #ee8a87;
+    height: 3px;
+    width: 0px;
+    position: relative;
+  }
+  .musicbox .time{
+    text-align: right;
+  }
