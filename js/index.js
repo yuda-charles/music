@@ -12,25 +12,27 @@ getMusicList(function(list){
 
 
 audio.ontimeupdate = function(){
-    console.log(this.currentTime)
     $('.musicbox .progress-now').style.width = (this.currentTime/this.duration)*100 + '%'
-    var min = Math.floor(this.currentTime/60)
-    var sec = Math.floor(this.currentTime)%60 + ''
-    sec = sec.length === 2? sec : '0' + sec
-    $('.musicbox .time').innerText = min + ':' + sec
+    
 }
 
 audio.onplay = function(){
-    
-    
-    
+   clock = setInterval(function(){
+    var min = Math.floor(audio.currentTime/60)
+    var sec = Math.floor(audio.currentTime)%60 + ''
+    sec = sec.length === 2? sec : '0' + sec
+    $('.musicbox .time').innerText = min + ':' + sec
+   }, 1000) 
 }
 audio.onpause = function(){
     clearInterval(clock)
 }
 
+audio.onended = function(){
+    currentIndex = (++currentIndex)%musicList.length
+    loadMusic(musicList[currentIndex])
+}
 
-window.onload = function(){
 $('.musicbox .play').onclick = function(){
     if(audio.paused){
     audio.play()
@@ -42,19 +44,22 @@ $('.musicbox .play').onclick = function(){
     this.querySelector('.iconfont').classList.remove('icon-ZT')
     }
 }
-}
+
 
 
     $('.musicbox .forward').onclick = function(){
     currentIndex = (++currentIndex)%musicList.length
-    console.log(currentIndex)
     loadMusic(musicList[currentIndex])
 }
 
 $('.musicbox .back').onclick = function(){
-    currentIndex = (musicList.length + (--currentIndex)) %musicList.length
-    console.log(currentIndex)
+    currentIndex = (musicList.length + --currentIndex) %musicList.length
     loadMusic(musicList[currentIndex])
+}
+
+$('.musicbox .bar').onclick = function(e){
+    var percent = e.offsetX / parseInt(getComputedStyle(this).width)
+    audio.currentTime = audio.duration * percent
 }
 
 
@@ -86,3 +91,7 @@ function loadMusic(musicObj){
     $('.musicbox .auther').innerText = musicObj.auther
     audio.src = musicObj.src
 }
+
+
+
+
